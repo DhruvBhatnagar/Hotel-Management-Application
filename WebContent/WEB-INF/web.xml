@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:javaee="http://java.sun.com/xml/ns/javaee"
+	xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+	id="WebApp_ID" version="2.4">
+	<display-name>Hotel Management</display-name>
+	<welcome-file-list>
+		<welcome-file>consumerSearch.jsp</welcome-file>
+	</welcome-file-list>
+	<servlet>
+		<servlet-name>staff</servlet-name>
+		<servlet-class>comp9321.StaffServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>staff</servlet-name>
+		<url-pattern>/staff</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>owner</servlet-name>
+		<servlet-class>comp9321.OwnerServlet</servlet-class>
+	</servlet>
+	
+	
+   <servlet>
+    <servlet-name>customer</servlet-name>
+    <servlet-class>comp9321.CustomerServlet</servlet-class>
+  </servlet>
+	
+	<servlet-mapping>
+		<servlet-name>owner</servlet-name>
+		<url-pattern>/owner</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>logout</servlet-name>
+		<url-pattern>/logout</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>logout</servlet-name>
+		<servlet-class>comp9321.LogoutServlet</servlet-class>
+	</servlet>
+	
+	
+	<servlet>
+		<servlet-name>stafffrontservlet</servlet-name>
+		<jsp-file>/checkinreception.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>stafffrontservlet</servlet-name>
+		<url-pattern>/reception/*</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>ownerfrontservlet</servlet-name>
+		<jsp-file>/ownersite.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ownerfrontservlet</servlet-name>
+		<url-pattern>/ceo/*</url-pattern>
+	</servlet-mapping>
+
+
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>staff login</web-resource-name>
+			<url-pattern>/staff</url-pattern>
+			<url-pattern>/staff/*</url-pattern>
+			<url-pattern>/reception</url-pattern>
+			<http-method>GET</http-method>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>staff</role-name>
+		</auth-constraint>
+		<user-data-constraint>
+			<transport-guarantee>NONE</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>ceo login</web-resource-name>
+			<url-pattern>/ceo</url-pattern>
+			<url-pattern>/owner</url-pattern>
+			<url-pattern>/owner/*</url-pattern>
+			<http-method>GET</http-method>
+			<http-method>POST</http-method>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>owner</role-name>
+		</auth-constraint>
+		<user-data-constraint>
+			<transport-guarantee>NONE</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+	<login-config>
+		<auth-method>FORM</auth-method>
+		<form-login-config>
+			<form-login-page>/login.jsp</form-login-page>
+			<form-error-page>/404.jsp</form-error-page>
+		</form-login-config>
+	</login-config>
+	
+		<security-role>
+		<description>staff role</description>
+		<role-name>staff</role-name>
+	</security-role>
+
+	<security-role>
+		<description>owner role</description>
+		<role-name>owner</role-name>
+	</security-role>
+</web-app>
